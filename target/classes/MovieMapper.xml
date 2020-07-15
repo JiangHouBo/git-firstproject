@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.movie.mapper.MovieMapper">
+    <resultMap id="movieMap" type="cn.movie.pojo.Movie">
+        <id property="mid" column="mid"/>
+        <collection property="cate" column="mid" select="cn.movie.mapper.CateMapper.selectCate"></collection>
+        <collection property="actor" column="mid" select="cn.movie.mapper.ActorMapper.selectActors"></collection>
+    </resultMap>
+<select id="selectMovies" resultMap="movieMap">
+    select * from movie where 1=1
+</select>
+    <select id="selectMovieByMid" parameterType="java.lang.Integer" resultType="cn.movie.pojo.Movie">
+       select DISTINCT m.* FROM movie as m,relest as r where m.mid=r.mid and r.cid=#{mid};
+    </select>
+    <select id="selectMovieByAid" parameterType="java.lang.Integer" resultType="cn.movie.pojo.Movie">
+         select DISTINCT m.* FROM movie as m,relest as r where m.mid=r.mid and r.aid=#{aid};
+    </select>
+</mapper>

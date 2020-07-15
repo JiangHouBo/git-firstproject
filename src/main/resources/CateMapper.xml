@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.movie.mapper.CateMapper">
+    <resultMap id="cateMap" type="cn.movie.pojo.CateGory">
+        <id property="id" column="cid"/>
+        <collection property="movie" column="cid" select="cn.movie.mapper.MovieMapper.selectMovieByAid"></collection>
+        <!--<collection property="actor" column="cid" select="cn.movie.mapper.ActorMapper.selectActorsByCid"></collection>-->
+    </resultMap>
+    <select id="selectByCid" parameterType="cn.movie.pojo.CateGory" resultMap="cateMap">
+        select *from category where 1=1 and cid=#{id}
+    </select>
+    <select id="selectCate" parameterType="java.lang.Integer" resultType="cn.movie.pojo.CateGory">
+        select DISTINCT c.* FROM category as c,relest as r where c.cid=r.cid and r.mid=#{cid};
+    </select>
+</mapper>
